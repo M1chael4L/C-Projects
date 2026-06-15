@@ -1,0 +1,374 @@
+﻿<Window x:Class="AI_SpellCheck.MainWindow"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AI_SpellCheck"
+        mc:Ignorable="d"
+        Icon="Assets/icon.ico"
+        Title="Коректор на текст" Height="750" Width="900" 
+        WindowStartupLocation="CenterScreen" 
+        Background="#F5F7FA">
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#4F46E5"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#4338CA"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#6366F1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="ClearButtonStyle" TargetType="Button" BasedOn="{StaticResource RoundedButtonStyle}">
+            <Setter Property="Background" Value="#EF4444"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#DC2626"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#B91C1C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ExampleButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#D1FAE5"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#A7F3D0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#065F46"/>
+            <Setter Property="BorderBrush" Value="#D1FAE5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <Style x:Key="RoundTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#6366F1"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#4F46E5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E7FF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+
+        <Style x:Key="FeatureCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.2" Color="#000000"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="20,15,20,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="Коректор на текст" 
+                             FontSize="24" 
+                             FontWeight="Bold" 
+                             Foreground="#4338CA"/>
+                    <TextBlock Text="Подобрете вашите текстове с изкуствен интелект" 
+                             FontSize="14" 
+                             Foreground="#6366F1" 
+                             Margin="0,5,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <Border BorderThickness="0,0,0,2" 
+                    BorderBrush="#6366F1" 
+                    Margin="0,10,0,0" 
+                    Padding="0,0,0,5"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20,10,20,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Input Section -->
+            <Border Grid.Row="0" 
+                    Background="White" 
+                    CornerRadius="10" 
+                    Margin="0,0,0,10"
+                    Padding="15"
+                    >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" 
+                               Text="Входящ текст" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="#4338CA"
+                               Margin="0,0,0,10"/>
+
+                    <TextBox Grid.Row="1" 
+                             x:Name="InputTextBox" 
+                             Style="{StaticResource RoundTextBoxStyle}"
+                             MinHeight="120"
+                             TabIndex="0"/>
+                </Grid>
+            </Border>
+
+            <!-- Buttons Section -->
+            <Grid Grid.Row="1" Margin="0,5,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Examples Section -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="Примери:" 
+                               FontSize="14" 
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,0"/>
+                    <Button Content="Пример 1" 
+                            Style="{StaticResource ExampleButtonStyle}"
+                            Click="Example1_Click" Width="60"/>
+                    <Button Content="Пример 2" 
+                            Style="{StaticResource ExampleButtonStyle}"
+                            Click="Example2_Click" Width="60"/>
+                    <Button Content="Пример 3" 
+                            Style="{StaticResource ExampleButtonStyle}"
+                            Click="Example3_Click" Width="60"/>
+                </StackPanel>
+
+                <!-- Action Buttons -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="ClearButton" 
+                            Content="Изчисти" 
+                            Style="{StaticResource ClearButtonStyle}"
+                            Margin="0,0,10,0"
+                            Click="ClearButton_Click" Width="65" Height="25"
+                            TabIndex="2"/>
+                    <Button x:Name="CorrectButton" 
+                            Content="Коригирай" 
+                            Style="{StaticResource RoundedButtonStyle}"
+                            Click="CorrectButton_Click" Width="97"
+                            TabIndex="1"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Output Section -->
+            <Border Grid.Row="2" 
+                    Background="#F5F3FF" 
+                    BorderBrush="#DDD6FE"
+                    BorderThickness="2"
+                    CornerRadius="10" 
+                    Margin="0,5,0,0"
+                    Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+
+                        <TextBlock Text="Коригиран текст" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="#5B21B6"/>
+                    </StackPanel>
+
+                    <TextBox Grid.Row="1" 
+                             x:Name="OutputTextBox" 
+                             Style="{StaticResource RoundTextBoxStyle}"
+                             Background="#F8F7FF"
+                             BorderBrush="#E9D5FF"
+                             IsReadOnly="True"
+                             Text="Тук ще се появи коригираният текст след натискане на бутона."
+                             MinHeight="120"
+                             />
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Footer -->
+        <Grid Grid.Row="2" Margin="20,0,20,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Features -->
+            <UniformGrid Grid.Row="0" Rows="1" Columns="3" Margin="0,0,0,15">
+                <Border Style="{StaticResource FeatureCardStyle}">
+                    <StackPanel HorizontalAlignment="Center">
+
+                        <TextBlock Text="Мигновена корекция" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="#4338CA" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Бързо коригирайте текстове с най-съвременна ИИ технология" 
+                                   TextWrapping="Wrap" 
+                                   TextAlignment="Center" 
+                                   Margin="0,5,0,0" 
+                                   Foreground="#6B7280"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource FeatureCardStyle}">
+                    <StackPanel HorizontalAlignment="Center">
+
+                        <TextBlock Text="Висока точност" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="#4338CA" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Специализиран модел за български език с над 98% прецизност" 
+                                   TextWrapping="Wrap" 
+                                   TextAlignment="Center" 
+                                   Margin="0,5,0,0" 
+                                   Foreground="#6B7280"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource FeatureCardStyle}">
+                    <StackPanel HorizontalAlignment="Center">
+
+                        <TextBlock Text="Удобен интерфейс" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="#4338CA" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Лесно и интуитивно приложение за коригиране на български текстове" 
+                                   TextWrapping="Wrap" 
+                                   TextAlignment="Center" 
+                                   Margin="0,5,0,0" 
+                                   Foreground="#6B7280"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Copyright -->
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                <TextBlock Text="Разработено с помощта на BgGPT - български изкуствен интелект" 
+                           Foreground="#6B7280" 
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="© 2025 BgGPT Коректор. Всички права запазени." 
+                           Foreground="#6B7280" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,5,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Loading Indicator -->
+        <Grid x:Name="LoadingOverlay" 
+              Grid.Row="0" 
+              Grid.RowSpan="3" 
+              Background="#80000000" 
+              Visibility="Collapsed">
+            <Border Background="White" 
+                    CornerRadius="10" 
+                    Width="300" 
+                    Height="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <ProgressBar IsIndeterminate="True" 
+                                 Width="200" 
+                                 Height="10" 
+                                 Foreground="#6366F1"/>
+                    <TextBlock Text="BgGPT анализира вашия текст..." 
+                               Margin="0,20,0,0" 
+                               HorizontalAlignment="Center"
+                               Foreground="#4338CA"
+                               FontSize="14"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
+

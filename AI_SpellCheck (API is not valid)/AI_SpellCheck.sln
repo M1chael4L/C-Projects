@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_SpellCheck", "AI_SpellCheck\AI_SpellCheck.csproj", "{863A6EC2-7DE5-4133-95B0-5AD5775FC4CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{863A6EC2-7DE5-4133-95B0-5AD5775FC4CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{863A6EC2-7DE5-4133-95B0-5AD5775FC4CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{863A6EC2-7DE5-4133-95B0-5AD5775FC4CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{863A6EC2-7DE5-4133-95B0-5AD5775FC4CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC97F2D8-E894-4937-9FA3-5BE4459A3AD5}
+	EndGlobalSection
+EndGlobal

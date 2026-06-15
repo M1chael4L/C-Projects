@@ -1,0 +1,17 @@
+C:\Users\misho\source\repos\Car Racing\Car Racing\bin\Debug\net6.0-windows\Car Racing.exe
+C:\Users\misho\source\repos\Car Racing\Car Racing\bin\Debug\net6.0-windows\Car Racing.deps.json
+C:\Users\misho\source\repos\Car Racing\Car Racing\bin\Debug\net6.0-windows\Car Racing.runtimeconfig.json
+C:\Users\misho\source\repos\Car Racing\Car Racing\bin\Debug\net6.0-windows\Car Racing.dll
+C:\Users\misho\source\repos\Car Racing\Car Racing\bin\Debug\net6.0-windows\Car Racing.pdb
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car_Racing.Form1.resources
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car_Racing.Properties.Resources.resources
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car Racing.csproj.GenerateResource.cache
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car Racing.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car Racing.AssemblyInfoInputs.cache
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car Racing.AssemblyInfo.cs
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car Racing.csproj.CoreCompileInputs.cache
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car Racing.dll
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\refint\Car Racing.dll
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car Racing.pdb
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\Car Racing.genruntimeconfig.cache
+C:\Users\misho\source\repos\Car Racing\Car Racing\obj\Debug\net6.0-windows\ref\Car Racing.dll
